@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WORLD NATIONS BATTLE</title>
+<style>
+body{margin:0;background:#071426;color:white;font-family:Arial;text-align:center;padding:18px}
+h1{color:#ffd54a;font-size:27px}
+.timer{font-size:48px;color:#39e69a;font-weight:bold;margin:20px}
+.country{background:#142b45;margin:12px auto;padding:14px;border-radius:12px;max-width:450px}
+.name{font-size:21px}
+.points{color:#ffd54a;font-size:23px;margin:8px}
+button{border:0;border-radius:8px;padding:10px;margin:4px;font-weight:bold}
+.like{background:#26c6da}
+.gift{background:#ffc107}
+input{padding:12px;border-radius:8px;width:65%;max-width:250px}
+.add{background:#39e69a}
+#result{color:#ffd54a;font-size:22px}
+</style>
+</head>
+<body>
+<h1>🌍 WORLD NATIONS BATTLE</h1>
+<h3>⚔️ حرب الأمم العالمية</h3>
+<div class="timer" id="timer">10:00</div>
+<div id="countries"></div>
+<h3 id="result">🏆 المنافسة بدأت!</h3>
+<hr>
+<h3>إضافة دولة</h3>
+<input id="countryName" placeholder="اكتب اسم الدولة">
+<button class="add" onclick="addCountry()">إضافة</button>
+<script>
+let countries=[
+{name:"العراق 🇮🇶",points:0},
+{name:"السعودية 🇸🇦",points:0},
+{name:"مصر 🇪🇬",points:0},
+{name:"المغرب 🇲🇦",points:0}
+];
+let seconds=600;
+function render(){
+countries.sort((a,b)=>b.points-a.points);
+document.getElementById("countries").innerHTML=
+countries.map((c,i)=>`
+<div class="country">
+<div class="name">${i+1}. ${c.name}</div>
+<div class="points">${c.points} نقطة</div>
+<button class="like" onclick="score(${i},1)">❤️ +1</button>
+<button class="gift" onclick="score(${i},100)">🎁 +100</button>
+</div>`).join("");
+}
+function score(i,n){
+countries[i].points+=n;
+render();
+}
+function addCountry(){
+let name=document.getElementById("countryName").value.trim();
+if(!name)return;
+if(countries.some(c=>c.name.toLowerCase()===name.toLowerCase()))return;
+countries.push({name,points:0});
+document.getElementById("countryName").value="";
+render();
+}
+function round(){
+let winner=countries.reduce((a,b)=>a.points>=b.points?a:b);
+document.getElementById("result").innerText=
+"🏆 الفائزة: "+winner.name+"!";
+countries.forEach(c=>c.points=0);
+seconds=600;
+render();
+}
+function tick(){
+seconds--;
+document.getElementById("timer").innerText=
+String(Math.floor(seconds/60)).padStart(2,"0")+":"+
+String(seconds%60).padStart(2,"0");
+if(seconds<=0)round();
+}
+setInterval(tick,1000);
+render();
+</script>
+</body>
+</html>
+
