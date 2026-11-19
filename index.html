@@ -78,6 +78,25 @@ if(seconds<=0)round();
 }
 setInterval(tick,1000);
 render();
+</script>  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCsRA5HtImfNq7M17i_zGXPnmWPNehsPew",
+    authDomain: "world-nations-battle.firebaseapp.com",
+    databaseURL: "https://world-nations-battle-default-rtdb.firebaseio.com",
+    projectId: "world-nations-battle",
+    storageBucket: "world-nations-battle.firebasestorage.app",
+    messagingSenderId: "676383197539",
+    appId: "1:676383197539:web:954be0c60dfc9d05016b56"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 </script>
 </body>
 </html>
